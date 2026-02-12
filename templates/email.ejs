@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; margin:0 auto; background:#ffffff; border-radius:8px; padding:20px;">
+      <tr>
+        <td>
+
+          <h2 style="margin-top:0; color:#111;">New Sell Car Submission</h2>
+
+          <!-- Customer Form Data -->
+          <h3 style="margin-bottom:10px;">Customer Submission</h3>
+
+          <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse;">
+            <% for (const [key, value] of Object.entries(formData)) { %>
+
+              <% 
+                let label = key
+                  .replace(/([A-Z])/g, " $1")
+                  .replace(/^./, str => str.toUpperCase());
+
+                if (key === "termsnconditions") {
+                  label = "Accepted Terms";
+                }
+              %>
+
+              <tr>
+                <td style="border-bottom:1px solid #eee; font-weight:bold; width:40%;">
+                  <%= label %>
+                </td>
+                <td style="border-bottom:1px solid #eee;">
+                  <%= value %>
+                </td>
+              </tr>
+
+            <% } %>
+          </table>
+
+
+          <!-- DVLA Section -->
+          <% if (dvla) { %>
+
+            <h3 style="margin-top:25px; margin-bottom:10px;">DVLA Vehicle Data</h3>
+
+            <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse;">
+              <tr>
+                <td style="border-bottom:1px solid #eee; font-weight:bold; width:40%;">Make</td>
+                <td style="border-bottom:1px solid #eee;"><%= dvla.make %></td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom:1px solid #eee; font-weight:bold;">Year</td>
+                <td style="border-bottom:1px solid #eee;"><%= dvla.yearOfManufacture %></td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom:1px solid #eee; font-weight:bold;">Fuel Type</td>
+                <td style="border-bottom:1px solid #eee;"><%= dvla.fuelType %></td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom:1px solid #eee; font-weight:bold;">Colour</td>
+                <td style="border-bottom:1px solid #eee;"><%= dvla.colour %></td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom:1px solid #eee; font-weight:bold;">MOT Status</td>
+                <td style="border-bottom:1px solid #eee;"><%= dvla.motStatus %></td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom:1px solid #eee; font-weight:bold;">Tax Status</td>
+                <td style="border-bottom:1px solid #eee;"><%= dvla.taxStatus %></td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom:1px solid #eee; font-weight:bold;">Marked For Export</td>
+                <td style="border-bottom:1px solid #eee;">
+                  <%= dvla.markedForExport ? "Yes" : "No" %>
+                </td>
+              </tr>
+            </table>
+
+          <% } %>
+
+        </td>
+      </tr>
+    </table>
+
+  </body>
+</html>
