@@ -48,8 +48,14 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  // ⭐ Framer verification request (no headers, empty body)
+  if (!req.headers["framer-signature"]) {
+    return res.status(200).json({ verified: true });
+  }
+
   try {
     const rawBody = await getRawBody(req);
+
 
     const framerSecret = process.env.FRAMER_WEBHOOK_SECRET || "";
     const devSecret = process.env.API_SECRET || "";
@@ -123,8 +129,8 @@ export default async function handler(req: any, res: any) {
     const html = ejs.render(template, { formData, dvla });
 
     await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: "arshadsaad1998@gmail.com",
+      from: "no-reply@contact.tenfoldcars.co.uk",
+      to: "uali@tenfoldtraders.co.uk",
       subject: `New Sell Car Submission – ${cleanedReg}`,
       html,
     });
